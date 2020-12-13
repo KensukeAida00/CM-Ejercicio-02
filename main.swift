@@ -19,24 +19,53 @@ class ejercicioUno{
       }
       return
     }
-    self.res=self.res*2
+    self.res=self.res*self.base
     return(upperNum(n:n-1))
   }
   func prepUpper(){
-    print("Ingrese numero entero para realizar la operacion 2^n        \nN=")
+    print("Ingrese numero entero para realizar la operacion 2^n",
+          "\nN=")
     let n=readLine()!
     self.n=Int(n)!
     upperNum(n:self.n)
     print("Resultado de 2^n=",self.res)
     return
   }
-
 }
-//func suma()->Int
+class ejercicioDos{
+  let a:Int
+  let b:Int
+  var sum:Double
+
+  init(){
+    print("Ingrese numeros enteros para hacer la suma 1^a+...+b^a",
+          "\na=")
+    self.a=Int(readLine()!)!
+    print("Ingrese numeros enteros para hacer la suma 1^a+...+b^a",
+          "\nb=")
+    self.b=Int(readLine()!)!
+    self.sum=0
+  }
+  func suma(n:Int){
+    let r=pow(Double(n),Double(self.a))
+    self.sum=self.sum+r
+    if n==self.b{
+      return
+    }
+    return(suma(n:n+1))
+  }
+  func resSuma(){
+    suma(n:1)
+    print("Resultado de 1^a+...+b^a=",self.sum)
+    return
+  }
+}
 func main(){
   let ejuno=ejercicioUno()
   ejuno.prepUpper()
+  let ejdos=ejercicioDos()
+  ejdos.resSuma()
 }
-//let n=pow(Double(2),Double(3))
+//let n=pow(Double(2),Double(-3))
 //print(n)
 main()
