@@ -1,8 +1,10 @@
 //Creado por Aquino Santiago Rogelio Gerardo
 //Para la clase de Computo movil
 //Fecha: 13/12/2020
+/*operaciones matematicas*/
 import Glibc
-
+/*Operaciones con String*/
+import Foundation
 class ejercicioUno{
   let base:Int
   var res:Int
@@ -73,21 +75,20 @@ class ejercicioTres{
     self.numArray=Array(numero)
   }
 
-  func validaNum()->Bool{
-    var i=0
-    while i<14{
-      if i != 4&&i != 9&&i != 0&&i != 3{
-        switch self.numArray[i]{
-          case "0"..."9":
-          break
-          default:
-          print("Error, no es un numero valido")
-          return false
-        }
-      }
-      i=i+1
+  func validaNum(i:Int)->Bool{
+    if i==14{
+      return true
     }
-    return true
+    if i != 4&&i != 9&&i != 0&&i != 3{
+      switch self.numArray[i]{
+        case "0"..."9":
+        return validaNum(i:i+1)
+        default:
+        print("Error, no es un numero valido")
+        return false
+      }
+    }
+    return validaNum(i:i+1)
   }
   func validaExtras()->Bool{
     if self.numArray.count != 14{
@@ -102,7 +103,7 @@ class ejercicioTres{
       print("Falta(n) el/los '()'")
       return false
     }
-    return validaNum()
+    return validaNum(i:0)
   }
   func validador(){
     if validaExtras()==true{
@@ -117,14 +118,87 @@ class ejercicioTres{
 }
 
 class ejercicioCuatro{
+  var recetario: [String]
+  var indiceRece:[Int]
+
+  init(){
+    let rec0: String="Hojaldres de queso y setas\nIngredientes: 1 masa de hojaldre, 1 diente de ajo, 100 g. de champiñones,50 g. de mozarella, 50 g, de queso cheddar.\nElaboración: Cocinar los champiñones en una sartén con un diente de ajo picado. Estirar la masa de hojaldre y colocar los ingredientes en el centro. Doblar la masa para cubrir los ingredientes. Hornear a 180 ºC hasta que esté dorado el hojaldre."
+    let rec1: String="Crema de calabaza.\nIngredientes: 1 calabaza, 2 cebollas, 2 dientes de ajo, 1 cucharada de mantequilla, Almendras laminadas para decorar. \nElaboración: Cortar la calabaza en trozos y salpimentar. Hornear la calabaza a 180º C hasta que esté blanda. Caramelizar las cebollas a fuego lento con la mantequilla. Freir los ajos previamente troceados. Licuar la calabaza con el ajo y la cebolla. Añadir un poco de agua si es necesario, para que quede la consistencia de crema. Decorar con las almendras laminadas."
+    let rec2: String="Salmón al horno. \nIngredientes: 500 g. de salmón, 1 limón, 1 cucharadita de eneldo, 1 cucharadita de pimienta, Alcaparras al gusto. \nElaboración: Engrasar un fuente de horno y colocar el salmón con la piel hacia abajo. Salpimentar y añadir el eneldo y la ralladura del limón. Hornear a 180º C durante 15 minutos. Añadir las alcaparras antes de servir."
+    let rec3: String="Tartaletas de manzana. \nIngredientes: 3 manzanas, 250 g. de hojaldre, 2 cucharadas de mantequilla, 1 cucharada de azúcar moreno. \nElaboración: Cortar las manzanas peladas en láminas finas. Estirar el hojaldre, pintar con mantequilla y espolvorear azúcar moreno. Colocar la manzana sobre el hojaldre hecho tiras, y enrollar para que quede forma de flor. Hornear a 180º C hasta que el hojaldre se dore."
+    let rec4: String="Tostada de queso brie.\nIngredientes: 1 cebolla grande, 1 cucharada de mantequilla,Pan cortado en rebanadas, Queso brie,Rodajas de tomate.\nElaboración: Partir la cebolla en tiras finas. Poner la mantequilla en una sartén y cuando esté derretida añadir la cebolla. Cocinar a fuego muy lento para que la cebolla no se deshidrate. Tostar el pan, añadir el queso brie y encima la cebolla cocinada y unas rodajas de tomate."
+    let rec5: String="Coliflor al horno.\nIngredientes: 1 coliflor, 1 cebolleta, 1 huevo grande, 300 g. pan rallado, Queso parmesano.\nElaboración: Cocer la coliflor durante 10 minutos. Meter en una picadora la coliflor cocida y la cebolleta. Añadir el huevo, el pan rallado y el queso, y mezclar bien hasta formar una masa. Hacer bolitas con la masa y hornear a 180º C durante 15 minutos."
+    let rec6: String="Rollitos de pollo con queso.\nIngredientes: 2 pechugas de pollo deshuesadas, 2 cucharadas queso azul, 100 g. de nueces, 4 lonchas de bacon.\n Elaboración: Amasar los filetes con un rodillo hasta conseguir un grosor uniforme. Untar el queso azul, echar las nueces picadas y enrollar el filete. Cubrir el rollo de carne con las lonchas de bacon y freir hasta que el bacon se dore. Hornear a 180º C alrededor de media hora para que se cocine el pollo."
+    let rec7: String="Mousse de café\nIngredientes: 1 cucharada de café instantáneo, 400 ml. de leche condensada, 400 ml. de crema de leche, Arándanos azules.\nElaboración: Calentar el café instantáneo y la leche condensada en una olla a fuego lento por 5 minutos. Enfriar en la nevera la mezcla durante 30 minutos. Añadir la crema de leche y batir hasta que quede consistencia de mousse. Decorar con café instantáneo o arándanos azules al gusto."
+    let rec8: String="Pasta con camarones al ajo.\nIngredientes: 600 g. de camarones, 400 g. de espagueti, 3 dientes de ajo picados, 1 chile picado, 3 cdas. de perejil picado.\nElaboración: Cocer los espaguetis al dente. Rehogar el ajo y el chile junto al perejil. Añadir a la sarten los camarones. Escurrir el espagueti y añadirle la mezcla anterior."
+    let rec9: String="Lasaña de patata\nIngredientes: 2 patatas pequeñas, 300 g. de salsa bolognesa, 210 g. de queso rallado, 1 manojo de espinacas.\nElaboración: Cortar las patatas en finas capas y colocarlas en la base de un molde para hornear. Verter 100 gr. de salsa boloñesa y colocar en capas la espinaca y el queso. Repetir proceso en función de cómo queramos el tamaño. Hornear 20 minutos a 200º C."
+    self.recetario=[rec0,rec1,rec2,rec3,rec4,rec5,
+    rec6,rec7,rec8,rec9]
+    self.indiceRece=[]
+  }
+  func imprimeRecetas(){
+    if self.indiceRece.count==0{
+      print("No se encontraron recetas")
+      return
+    }
+    self.indiceRece=self.indiceRece.sorted()
+    var i:Int=0
+    var j:Int=1
+    while i<self.indiceRece.count{
+      if i==0{
+        print("Receta ",j,"\n",recetario[indiceRece[i]])
+        j=j+1
+      }
+      else{
+        if indiceRece[i] != indiceRece[i-1]{
+          print("Receta ",j,"\n",recetario[indiceRece[i]])
+          j=j+1
+        }
+      }
+      i=i+1
+    }
+    return
+  }
+  func buscaEnReceta(ingrediente:String,puestoIndice:Int){
+    if puestoIndice<self.recetario.count{
+      if self.recetario[puestoIndice].lowercased().contains(ingrediente){
+        self.indiceRece.append(puestoIndice)
+        print("Se encontro receta para:",ingrediente)
+      }
+      return buscaEnReceta(ingrediente:ingrediente,puestoIndice:puestoIndice+1)
+    }
+    return
+  }
+  func buscaIngredientes(ingredientes:[String],puestoIng:Int){
+    if puestoIng<ingredientes.count{
+      buscaEnReceta(ingrediente:ingredientes[puestoIng],puestoIndice:0)
+      buscaIngredientes(ingredientes:ingredientes,puestoIng:puestoIng+1)
+    }
+    return
+  }
+  func ingredientesPedidos(){
+    print("Ingrese los ingredientes a buscar, separando por una coma [a,b,c]","\nIngredientes:")
+    let ingredientes = readLine()!
+    let listIngredie = ingredientes.components(separatedBy: ",")
+    buscaIngredientes(ingredientes:listIngredie,puestoIng:0)
+    imprimeRecetas()
+  }
   
+}
+class ejercicioCinco{
+  var listProducto:[Int]
+  init(){
+    self.listProducto=[]
+  }
 }
 func main(){
   //let ejuno=ejercicioUno()
   //ejuno.prepUpper()
   //let ejdos=ejercicioDos()
   //ejdos.resSuma()
-  let ejtres=ejercicioTres()
-  ejtres.validador()
+  //let ejtres=ejercicioTres()
+  //ejtres.validador()
+  //let ejcuatro=ejercicioCuatro()
+  //ejcuatro.ingredientesPedidos()
 }
 main()
