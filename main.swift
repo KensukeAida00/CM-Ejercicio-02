@@ -146,12 +146,12 @@ class ejercicioCuatro{
     var j:Int=1
     while i<self.indiceRece.count{
       if i==0{
-        print("Receta ",j,"\n",recetario[indiceRece[i]])
+        print("Receta ",j,"\n",recetario[indiceRece[i]],"\n\n")
         j=j+1
       }
       else{
         if indiceRece[i] != indiceRece[i-1]{
-          print("Receta ",j,"\n",recetario[indiceRece[i]])
+          print("Receta ",j,"\n",recetario[indiceRece[i]],"\n\n")
           j=j+1
         }
       }
@@ -244,16 +244,75 @@ class ejercicioCinco{
   }
 
 }
-func main(){
-  //let ejuno=ejercicioUno()
-  //ejuno.prepUpper()
-  //let ejdos=ejercicioDos()
-  //ejdos.resSuma()
-  //let ejtres=ejercicioTres()
-  //ejtres.validador()
-  //let ejcuatro=ejercicioCuatro()
-  //ejcuatro.ingredientesPedidos()
+
+func uno(){
+  let ejuno=ejercicioUno()
+  ejuno.prepUpper()
+  return
+}
+
+func dos(){
+  let ejdos=ejercicioDos()
+  ejdos.resSuma()
+  return
+}
+
+func tres(){
+  let ejtres=ejercicioTres()
+  ejtres.validador()
+  return
+}
+func cuatro(){
+  let ejcuatro=ejercicioCuatro()
+  ejcuatro.ingredientesPedidos()
+  return
+}
+func cinco(){
   let ejcinco=ejercicioCinco()
   ejcinco.productoInicio()
+  return
+}
+func desicion(){
+  print(" 1.-2^n\n",
+        "2.-1^a+2^a+...+b^a\n",
+        "3.-Validar numero telefonico tipo (nn)-nnnn-nnnn\n",
+        "4.-Ver recetas con uno o varios ingredientes\n",
+        "5.-Producto de numeros\n",
+        "6.-Salir\n",
+        "Respuesta:")
+  switch readLine()!{
+        case "1":
+        uno()
+        case "2":
+        dos()
+        case "3":
+        tres()
+        case "4":
+        cuatro()
+        case "5":
+        cinco()
+        case "6":
+        print("Adios\n",
+              "Creado por Aquino Santiago Rogelio Gerardo")
+        return
+        default:
+        print("Error\nNo es un numero valido, intente otra vez")
+        return desicion()
+      }
+  print("¿Realizar otra actividad? [y=si/otro=no]")
+  if readLine()! == "y"{
+    print("Elija que operacion realizar:\n")
+    return desicion()
+  }
+  else{
+    print("Adios\nCreado por Aquino Santiago Rogelio Gerardo")
+    return
+  }
+  
+}
+func main(){
+  print("Bienvenido, elija que operacion realizar:\n")
+  desicion()
+  return  
 }
 main()
