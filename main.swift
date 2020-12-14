@@ -185,11 +185,64 @@ class ejercicioCuatro{
   }
   
 }
+
 class ejercicioCinco{
   var listProducto:[Int]
+  var resultado:[Int]
+
   init(){
     self.listProducto=[]
+    self.resultado=[]
   }
+
+  func productoMultipl(i:Int,j:Int){
+    if  listProducto.count==j{
+      return
+    }
+    if i==j{
+      return productoMultipl(i:i,j:j+1)
+    }
+    resultado[i]=resultado[i]*listProducto[j]
+    return productoMultipl(i:i,j:j+1)
+  }
+
+  func productoFuncion(i:Int){
+    if  listProducto.count==i{
+      return
+    }
+    productoMultipl(i:i,j:0)
+    return productoFuncion(i:i+1)
+  
+  }
+  func desicion(i:Int){
+    if readLine()! == "y"{
+      introduceNumeros(i:i+1)
+    }
+    else{
+      print("Numeros introducidos:\n",self.listProducto)
+      if  listProducto.count==1{
+        print("No se realizo la operacion al solo introducir un numero")
+        return
+      }
+      productoFuncion(i:0)
+    }
+    return
+  }
+  func introduceNumeros(i:Int){
+    print("Introduce el numero ",i+1,"\nNumero:")
+    let numero = readLine()!
+    listProducto.append(Int(numero)!)
+    resultado.append(1)
+    print("¿Añadir otro? [y=si/otro=no]")
+    desicion(i:i)
+    return
+  }
+  func productoInicio(){
+    print("Introduce los numeros a crear producto de los demas")
+    introduceNumeros(i:0)
+    print("Producto de los demas numeros exceptuando el mismo:\n",resultado)
+  }
+
 }
 func main(){
   //let ejuno=ejercicioUno()
@@ -200,5 +253,7 @@ func main(){
   //ejtres.validador()
   //let ejcuatro=ejercicioCuatro()
   //ejcuatro.ingredientesPedidos()
+  let ejcinco=ejercicioCinco()
+  ejcinco.productoInicio()
 }
 main()
