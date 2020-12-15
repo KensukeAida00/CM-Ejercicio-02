@@ -1,15 +1,25 @@
 //Creado por Aquino Santiago Rogelio Gerardo
 //Para la clase de Computo movil
 //Fecha: 13/12/2020
-/*operaciones matematicas*/
+/*Se importa Glibc para las operaciones aritmeticas*/
 import Glibc
-/*Operaciones con String*/
+/*Se importa Foundation para realizar busquedaas dentro de cadenas*/
 import Foundation
+
+/*
+Clase creada para hacer el desarrollo del algoritmo que calcule 2 a la N donde N es un número entero mayor o igual a cero, utilizando recursividad*/
 class ejercicioUno{
+  /*
+  base: Es sobre el cual se aplicara la exponencial
+  res: Resultado de la exponencial
+  n: Es el numero exponencial
+  base^n=res*/
   let base:Int
   var res:Int
   var n:Int
 
+  /*
+  Inicializacion de las variables junto a la lectura de n*/
   init(){
     self.base=2
     self.res=2
@@ -18,6 +28,9 @@ class ejercicioUno{
     let n=readLine()!
     self.n=Int(n)!
   }
+  /*
+  Operacion recursiva por el cual se aplciara el 2^n
+  n: numero que resta en la interaccion 2^n*/
   func upperNum(n:Int){
     if n<=1{
       if n==0{
@@ -28,18 +41,27 @@ class ejercicioUno{
     self.res=self.res*self.base
     return(upperNum(n:n-1))
   }
+  /*
+  Funcion que prepara la funcion upperNum y muestra el resultado*/
   func prepUpper(){
     upperNum(n:self.n)
     print("Resultado de 2^n=",self.res)
     return
   }
 }
-
+/*
+Clase creada para que, dado a y b como números enteros, realizar la sumatoria de: 1^a + 2^a + 3^a ... b^a*/
 class ejercicioDos{
+  /*
+  a: numero que sera la exponencial en la sumatoria
+  b: numero que sera el limite dentro de la sumatoria
+  sum: resultado de la sumatoria*/
   let a:Int
   let b:Int
   var sum:Double
 
+  /*
+  Inicializando a, b y sum escaneando desde la terminal a y b. Por defecto la suma vale 0*/
   init(){
     print("Ingrese numeros enteros para hacer la suma 1^a+...+b^a",
           "\na=")
@@ -49,6 +71,9 @@ class ejercicioDos{
     self.b=Int(readLine()!)!
     self.sum=0
   }
+  /*
+  Suma recursiva por el cual se hara la operacion 1^a+...+b^a
+  n: Numero que por el cual se hara la exponencial, se le sumara a la sumatoria y, en caso de ser igual a b, retornara*/
   func suma(n:Int){
     let r=pow(Double(n),Double(self.a))
     self.sum=self.sum+r
@@ -57,6 +82,8 @@ class ejercicioDos{
     }
     return(suma(n:n+1))
   }
+  /*
+  Funcion la cual inicializara la suma en 1 e imprimira el resultado de la suma*/
   func resSuma(){
     suma(n:1)
     print("Resultado de 1^a+...+b^a=",self.sum)
@@ -64,10 +91,18 @@ class ejercicioDos{
   }
 }
 
+/*
+Clase creada por el cual, dada una cadena introducida por el usuario validar si es un número telefónico con la siguiente estructura
+(nn) - nn - nnnn - nnnn*/
 class ejercicioTres{
+  /*
+  numero: Cadena que introduce el usuario
+  numArray: Arreglo de caracteres del numero por el cual se evaluara el numero*/
   let numero:String
   let numArray:[Character]
-
+  
+  /*
+  Funcion que inicializara numero y numArray, escaneando desde la terminal el numero y convirtiendo en arreglo de caracteres el numero introducido*/
   init(){
     print("Ingrese el numero de telefono con formato (nn)-nnnn-nnnn",
     "\nNumero:")
@@ -75,6 +110,9 @@ class ejercicioTres{
     self.numArray=Array(numero)
   }
 
+  /*
+  Funcion recursiva por la cual se evaluara si es un numero el arreglo de la clase, omitira los parentesis y los guiones y solo se enfocara en los que deberia de tener un numero, en caso de serlo va al siguiente lugar, en caso de que no regresa un error
+  i: lugar del arreglo*/
   func validaNum(i:Int)->Bool{
     if i==14{
       return true
@@ -90,6 +128,9 @@ class ejercicioTres{
     }
     return validaNum(i:i+1)
   }
+
+  /*
+  Funcion por la cual se validara que se encuentren los patentesis y guiones en sus lugares correspondiente, si lo es, regresa el resultado de la funcion validaNum, en caso contrario regresa un false*/
   func validaExtras()->Bool{
     if self.numArray.count != 14{
       print("Tamaño incorrecto")
@@ -105,6 +146,9 @@ class ejercicioTres{
     }
     return validaNum(i:0)
   }
+
+  /*
+  Funcion que inicia la validacion del numero llammando la funcion validaExtras*/
   func validador(){
     if validaExtras()==true{
       print("El numero es valido")
@@ -117,10 +161,17 @@ class ejercicioTres{
   }
 }
 
+/*
+Clase creada por el cual, dada un lista de recetas (mínimo 10 recetas - texto) encontrar las recetas que contengan alguno o algunos ingredientes. El usuario solo verá las recetas que contengan los ingredientes que el captura desde la línea de comandos.*/
 class ejercicioCuatro{
+  /*
+  recetario: Arreglo que guarda las recetas
+  indiceRece: Arreglo que guarda las recetas que coincide con el/los ingredientes introducidos*/
   var recetario: [String]
   var indiceRece:[Int]
 
+  /*
+  Funcion que inicializa las variavbles recetario e indiceRece, indiceRece se guarda como un arreglo vacio en caso de que no se encuentre durante las evaluaciones*/
   init(){
     let rec0: String="Hojaldres de queso y setas\nIngredientes:\n 1 masa de hojaldre\n 1 diente de ajo\n 100 g. de champiñones\n 50 g. de mozarella\n 50 g, de queso cheddar.\nElaboración:\n Cocinar los champiñones en una sartén con un diente de ajo picado.\n Estirar la masa de hojaldre y colocar los ingredientes en el centro.\n Doblar la masa para cubrir los ingredientes.\n Hornear a 180 ºC hasta que esté dorado el hojaldre."
     let rec1: String="Crema de calabaza.\nIngredientes:\n 1 calabaza\n 2 cebollas\n 2 dientes de ajo\n 1 cucharada de mantequilla\n Almendras laminadas para decorar.\n Elaboración:\n Cortar la calabaza en trozos y salpimentar.\n Hornear la calabaza a 180º C hasta que esté blanda.\n Caramelizar las cebollas a fuego lento con la mantequilla.\n Freir los ajos previamente troceados.\n Licuar la calabaza con el ajo y la cebolla.\n Añadir un poco de agua si es necesario, para que quede la consistencia de crema.\n Decorar con las almendras laminadas."
@@ -136,6 +187,9 @@ class ejercicioCuatro{
     rec6,rec7,rec8,rec9]
     self.indiceRece=[]
   }
+
+  /*
+  Funcion que imprime las recetas utilzando indiceRece como las recetas las cuales coinciden con los ingredientes introducidos*/
   func imprimeRecetas(){
     if self.indiceRece.count==0{
       print("No se encontraron recetas")
@@ -159,6 +213,11 @@ class ejercicioCuatro{
     }
     return
   }
+
+  /*
+  Funcion recursiva que busca dentro del arreglo receta el ingrediente deseado.
+  ingrediente: Ingrediente que sera buscada en recetas
+  puestoIndice: Puesto de la receta dentro de el arreglo receta*/
   func buscaEnReceta(ingrediente:String,puestoIndice:Int){
     if puestoIndice<self.recetario.count{
       if self.recetario[puestoIndice].lowercased().contains(ingrediente){
@@ -169,6 +228,11 @@ class ejercicioCuatro{
     }
     return
   }
+
+  /*
+  Funcion recursiva por el cual, llamara la funcion buscaEnReceta cada uno de los ingredientes introducidos.
+  ingredientes: Arreglo de ingredientes
+  puestoIng: Puesto del ingrediente dentro del arreglo*/
   func buscaIngredientes(ingredientes:[String],puestoIng:Int){
     if puestoIng<ingredientes.count{
       buscaEnReceta(ingrediente:ingredientes[puestoIng],puestoIndice:0)
@@ -176,6 +240,9 @@ class ejercicioCuatro{
     }
     return
   }
+
+  /*
+  Funcion que inicializa la funcion buscaIngredientes, ademas de solicitar los ingrtedientes a buscar, dividira la cadena introducida al encontrar una coma y lo guardara en un arreglo de ingredientes.*/
   func ingredientesPedidos(){
     print("Ingrese los ingredientes a buscar, separando por una coma [a,b,c]","\nIngredientes:")
     let ingredientes = readLine()!
@@ -186,15 +253,26 @@ class ejercicioCuatro{
   
 }
 
+/*
+Clase creada por el cual, dado un arreglo de números enteros, regresar un nuevo arreglo tal que cada elemento en la posición "i" del nuevo arreglo es el producto de todos los números del arreglo original menos el de la posición i*/
 class ejercicioCinco{
+  /*
+  listProducto: Lista que introducira el usuario para realizar la operacion
+  resultado: Lista que entrega el resultado*/
   var listProducto:[Int]
   var resultado:[Int]
 
+  /*
+  Inicializara los arreglos en vacio, esto es debido a que estos mismos no son un numero especifico*/
   init(){
     self.listProducto=[]
     self.resultado=[]
   }
 
+  /*
+  Funcion recursiva por el cual se realizara el producto de las demas, en caso de ser el mismo numero, se omitira
+  i: lugar dentro del arreglo de resultado que se guardara el resultado
+  j: lugar de la listProducto por el cual se multiplicara*/
   func productoMultipl(i:Int,j:Int){
     if  listProducto.count==j{
       return
@@ -206,14 +284,20 @@ class ejercicioCinco{
     return productoMultipl(i:i,j:j+1)
   }
 
+  /*
+  Funcion recursiva por la cual inicializara a la funcion productoMultipl
+  i: lugar por el cual sera el producto*/
   func productoFuncion(i:Int){
     if  listProducto.count==i{
       return
     }
     productoMultipl(i:i,j:0)
     return productoFuncion(i:i+1)
-  
   }
+
+  /*
+  Funcion recursiva por el cual, el usuario introducira los numeros para realizar el producto de estos si la respuesta es afirmativa
+  i: lugar dentro del arreglo de numeros a ser realizado la operacion de productos*/
   func desicion(i:Int){
     if readLine()! == "y"{
       introduceNumeros(i:i+1)
@@ -228,6 +312,10 @@ class ejercicioCinco{
     }
     return
   }
+
+  /*
+  Funcion recursiva la cual introduce los numeros a ser ingresados y, en caso de requerir mas, se llama la funcion desiscion
+  i: lugar dentro del arreglo de numeros a ser realizado la operacion de productos*/
   func introduceNumeros(i:Int){
     print("Introduce el numero ",i+1,"\nNumero:")
     let numero = readLine()!
@@ -237,41 +325,58 @@ class ejercicioCinco{
     desicion(i:i)
     return
   }
+
+  /*
+  Funcion que inicializa la funcion introduceNumeros y muestra el resultado del producto resultante*/
   func productoInicio(){
     print("Introduce los numeros a crear producto de los demas")
     introduceNumeros(i:0)
     print("Producto de los demas numeros exceptuando el mismo:\n",resultado)
   }
-
 }
 
+/*
+Funcion que inicializa la clase ejercicioUno y es seleccionada en caso de que en la funcion desicion se seleccione 1*/
 func uno(){
   let ejuno=ejercicioUno()
   ejuno.prepUpper()
   return
 }
 
+/*
+Funcion que inicializa la clase ejercicioDos y es seleccionada en caso de que en la funcion desicion se seleccione 2*/
 func dos(){
   let ejdos=ejercicioDos()
   ejdos.resSuma()
   return
 }
 
+/*
+Funcion que inicializa la clase ejercicioTres y es seleccionada en caso de que en la funcion desicion se seleccione 3*/
 func tres(){
   let ejtres=ejercicioTres()
   ejtres.validador()
   return
 }
+
+/*
+Funcion que inicializa la clase ejercicioCuatro y es seleccionada en caso de que en la funcion desicion se seleccione 4*/
 func cuatro(){
   let ejcuatro=ejercicioCuatro()
   ejcuatro.ingredientesPedidos()
   return
 }
+
+/*
+Funcion que inicializa la clase ejercicioCinco y es seleccionada en caso de que en la funcion desicion se seleccione 5*/
 func cinco(){
   let ejcinco=ejercicioCinco()
   ejcinco.productoInicio()
   return
 }
+
+/*
+Funcion recursiva la cual el usuario decidira la operacion a hacer, llamando a la funcion correspondiente.*/
 func desicion(){
   print(" 1.-2^n\n",
         "2.-1^a+2^a+...+b^a\n",
@@ -308,8 +413,10 @@ func desicion(){
     print("Adios\nCreado por Aquino Santiago Rogelio Gerardo")
     return
   }
-  
 }
+
+/*
+Funcion principal que da la bienvenida y llama a la operacion desicion*/
 func main(){
   print("Bienvenido, elija que operacion realizar:\n")
   desicion()
