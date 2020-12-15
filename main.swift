@@ -1,6 +1,7 @@
 //Creado por Aquino Santiago Rogelio Gerardo
 //Para la clase de Computo movil
 //Fecha: 13/12/2020
+
 /*Se importa Glibc para las operaciones aritmeticas*/
 import Glibc
 /*Se importa Foundation para realizar busquedaas dentro de cadenas*/
@@ -29,7 +30,7 @@ class ejercicioUno{
     self.n=Int(n)!
   }
   /*
-  Operacion recursiva por el cual se aplciara el 2^n
+  Operacion recursiva por el cual se aplciara el 2^n, en caso de ser un numero inferior a 0, se mostrara un 2 por defecto
   n: numero que resta en la interaccion 2^n*/
   func upperNum(n:Int){
     if n<=1{
@@ -73,7 +74,7 @@ class ejercicioDos{
   }
   /*
   Suma recursiva por el cual se hara la operacion 1^a+...+b^a
-  n: Numero que por el cual se hara la exponencial, se le sumara a la sumatoria y, en caso de ser igual a b, retornara*/
+  n: Numero que por el cual se hara la exponencial, se le sumara a la sumatoria y, en caso de ser igual a b, retornara, al hacer uso del pow, puede ser a un numero negativo*/
   func suma(n:Int){
     let r=pow(Double(n),Double(self.a))
     self.sum=self.sum+r
@@ -83,8 +84,12 @@ class ejercicioDos{
     return(suma(n:n+1))
   }
   /*
-  Funcion la cual inicializara la suma en 1 e imprimira el resultado de la suma*/
+  Funcion la cual inicializara la suma en 1 e imprimira el resultado de la suma, en caso de ser b un numero negativo, no se resolvera la operacion*/
   func resSuma(){
+    if b<0{
+      print("No se puede realzar la operacion al ser b un numero negativo")
+      return
+    }
     suma(n:1)
     print("Resultado de 1^a+...+b^a=",self.sum)
     return
@@ -314,7 +319,7 @@ class ejercicioCinco{
   }
 
   /*
-  Funcion recursiva la cual introduce los numeros a ser ingresados y, en caso de requerir mas, se llama la funcion desiscion
+  Funcion recursiva la cual introduce los numeros a ser ingresados y, en caso de requerir mas, se llama la funcion desiscion, de manera natural, en el arreglo de respuesta, se conectara un 1 y, en caso de que solo se introduzca un solo numero, se mostrara por defecto el 1
   i: lugar dentro del arreglo de numeros a ser realizado la operacion de productos*/
   func introduceNumeros(i:Int){
     print("Introduce el numero ",i+1,"\nNumero:")
